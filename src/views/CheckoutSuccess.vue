@@ -153,13 +153,35 @@ export default {
 </script>
 
 <style scoped>
+:root {
+  --primary-color: #ff8a8a;
+  --primary-hover: #ff6b6b;
+  --primary-light: rgba(255, 138, 138, 0.12);
+  --primary-lighter: rgba(255, 138, 138, 0.05);
+  --success-color: #67c23a;
+  --text-dark: #333;
+  --text-light: #777;
+  --border-light: #eeeeee;
+  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 6px 16px rgba(0, 0, 0, 0.1);
+  --transition-normal: all 0.3s ease;
+  --gradient-primary: linear-gradient(135deg, #ff8a8a 0%, #ff6b6b 100%);
+  --gradient-secondary: linear-gradient(135deg, #ff8a8a 0%, #ff5151 100%);
+  --border-radius-full: 30px;
+  --shadow-primary: 0 5px 15px rgba(255, 107, 107, 0.3);
+  --success-gradient: linear-gradient(135deg, #67c23a 0%, #52b625 100%);
+  --success-shadow: 0 5px 15px rgba(103, 194, 58, 0.3);
+}
+
 .checkout-page {
-  padding: 30px 0 60px;
+  padding: 40px 0 70px;
+  animation: fadeIn 0.8s ease-out;
 }
 
 .checkout-container {
   max-width: 800px;
   margin: 0 auto;
+  animation: slideUp 0.5s ease-out;
 }
 
 /* Progress Bar */
@@ -175,26 +197,31 @@ export default {
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+  transition: var(--transition-normal);
 }
 
 .step-number {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #f0f0f0;
+  background-color: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
-  margin-bottom: 8px;
-  color: #777;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-light);
   border: 2px solid transparent;
+  transition: var(--transition-normal);
 }
 
 .step-label {
   font-size: 0.9rem;
-  color: #777;
+  color: var(--text-light);
   font-weight: 500;
+  transition: var(--transition-normal);
 }
 
 .progress-bar {
@@ -203,77 +230,145 @@ export default {
   background-color: #f0f0f0;
   margin: 0 15px;
   margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-normal);
+}
+
+.progress-bar.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--gradient-primary);
+  animation: progressBarFill 0.8s ease-out forwards;
+}
+
+@keyframes progressBarFill {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
 }
 
 .progress-step.active .step-number {
-  background-color: #d71f1f;
+  background-image: var(--gradient-primary);
   color: white;
-  border-color: #d71f1f;
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-primary);
+  transform: scale(1.05);
 }
 
 .progress-step.active .step-label {
-  color: #333;
+  color: var(--text-dark);
+  font-weight: 600;
 }
 
 .progress-step.completed .step-number {
-  background-color: #43a047;
+  background-image: var(--success-gradient);
   color: white;
-  border-color: #43a047;
-}
-
-.progress-bar.active {
-  background-color: #43a047;
+  border-color: var(--success-color);
+  box-shadow: var(--success-shadow);
 }
 
 /* Success Content */
 .checkout-content {
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-medium);
+  padding: 35px;
+  animation: fadeIn 0.6s ease-out;
+  transition: var(--transition-normal);
+}
+
+.checkout-content:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .success-message {
   text-align: center;
+  animation: slideUp 0.6s ease-out;
 }
 
 .success-icon {
-  font-size: 4rem;
-  color: #43a047;
-  margin-bottom: 20px;
+  font-size: 4.5rem;
+  color: var(--success-color);
+  margin-bottom: 25px;
+  animation: bounce 1.5s ease infinite;
+  background-image: var(--success-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .success-message h2 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  color: #333;
+  font-size: 2rem;
+  margin-bottom: 18px;
+  color: var(--text-dark);
+  font-weight: 700;
+  background-image: linear-gradient(135deg, #333 0%, #555 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .success-message p {
-  color: #666;
+  color: var(--text-light);
   max-width: 600px;
-  margin: 0 auto 30px;
+  margin: 0 auto 35px;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
 .order-details, .customer-info {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  padding: 20px;
+  background-color: #f9f9fb;
+  border-radius: 12px;
+  padding: 25px;
   margin-bottom: 30px;
   text-align: left;
+  border: 1px solid transparent;
+  transition: var(--transition-normal);
+}
+
+.order-details:hover, .customer-info:hover {
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-light);
+  transform: translateY(-5px);
 }
 
 .order-details h3, .customer-info h3 {
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e9ecef;
-  color: #333;
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-dark);
+  position: relative;
+}
+
+.order-details h3::after, .customer-info h3::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-image: var(--gradient-primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.order-details:hover h3::after, .customer-info:hover h3::after {
+  width: 80px;
 }
 
 .detail-row, .info-row {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  transition: var(--transition-normal);
+}
+
+.detail-row:hover, .info-row:hover {
+  transform: translateX(5px);
 }
 
 .detail-row:last-child, .info-row:last-child {
@@ -283,24 +378,73 @@ export default {
 .detail-label, .info-label {
   flex: 0 0 150px;
   font-weight: 600;
-  color: #555;
+  color: var(--text-dark);
 }
 
 .detail-value, .info-value {
   flex: 1;
-  color: #333;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.detail-row:nth-child(4) .detail-value {
+  color: var(--primary-color);
+  background-image: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
 }
 
 .success-actions {
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 .success-actions .btn {
-  padding: 12px 30px;
+  padding: 14px 32px;
   font-size: 1.1rem;
+  background-image: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.success-actions .btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  .checkout-content {
+    padding: 25px 20px;
+  }
+
   .step-label {
     font-size: 0.8rem;
   }
@@ -317,5 +461,17 @@ export default {
   .detail-label, .info-label {
     margin-bottom: 5px;
   }
-}
-</style>
+  
+  .success-message h2 {
+    font-size: 1.6rem;
+  }
+  
+  .success-icon {
+    font-size: 3.5rem;
+  }
+  
+  .success-actions .btn {
+    width: 100%;
+    padding: 12px 20px;
+  }
+}</style>

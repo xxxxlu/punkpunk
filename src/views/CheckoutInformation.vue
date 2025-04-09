@@ -327,26 +327,18 @@ export default {
   color: var(--text-dark);
 }
 
-.btn-secondary:hover {
-  background-color: #e5e5e5;
-  transform: translateY(-2px);
-}
-
-/* ===== 主容器 ===== */
 .checkout-container {
-  max-width: 850px;
+  max-width: 800px;
   margin: 0 auto;
   animation: slideUp 0.5s ease-out;
 }
 
-/* ===== 进度条 ===== */
+/* Progress Bar */
 .checkout-progress {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 50px;
-  position: relative;
-  padding: 0 10px;
+  margin-bottom: 40px;
 }
 
 .progress-step {
@@ -355,28 +347,27 @@ export default {
   align-items: center;
   flex: 0 0 auto;
   position: relative;
-  z-index: 2;
+  z-index: 1;
   transition: var(--transition-normal);
 }
 
 .step-number {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: white;
+  background-color: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   margin-bottom: 10px;
   color: var(--text-light);
-  border: 2px solid var(--border-light);
-  box-shadow: var(--shadow-light);
+  border: 2px solid transparent;
   transition: var(--transition-normal);
 }
 
 .step-label {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-light);
   font-weight: 500;
   transition: var(--transition-normal);
@@ -384,20 +375,37 @@ export default {
 
 .progress-bar {
   flex-grow: 1;
-  height: 4px;
-  background-color: var(--border-light);
+  height: 3px;
+  background-color: #f0f0f0;
   margin: 0 15px;
-  margin-bottom: 38px;
+  margin-bottom: 28px;
   position: relative;
-  transition: background-color 0.8s ease;
+  overflow: hidden;
+  transition: var(--transition-normal);
+}
+
+.progress-bar.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--gradient-primary);
+  animation: progressBarFill 0.8s ease-out forwards;
+}
+
+@keyframes progressBarFill {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
 }
 
 .progress-step.active .step-number {
-  background-color: var(--primary-color);
+  background-image: var(--gradient-primary);
   color: white;
   border-color: var(--primary-color);
+  box-shadow: var(--shadow-primary);
   transform: scale(1.05);
-  box-shadow: 0 0 0 5px var(--primary-light);
 }
 
 .progress-step.active .step-label {
@@ -406,54 +414,62 @@ export default {
 }
 
 .progress-step.completed .step-number {
-  background-color: var(--success-color);
+  background-image: var(--success-gradient);
   color: white;
   border-color: var(--success-color);
+  box-shadow: var(--success-shadow);
 }
 
-.progress-bar.active {
-  background-color: var(--success-color);
-}
-
-/* ===== 结账内容 ===== */
+/* Main Checkout Content */
 .checkout-content {
   background-color: white;
   border-radius: 12px;
   box-shadow: var(--shadow-medium);
   padding: 35px;
+  animation: fadeIn 0.6s ease-out;
   transition: var(--transition-normal);
+}
+
+.checkout-content:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .information-form h2 {
   font-size: 1.4rem;
   margin-bottom: 25px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-light);
   color: var(--text-dark);
   position: relative;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
 }
 
-.information-form h2::before {
+.information-form h2::after {
   content: '';
   position: absolute;
   bottom: -1px;
   left: 0;
-  width: 50px;
+  width: 60px;
   height: 3px;
-  background-color: var(--primary-color);
+  background-image: var(--gradient-primary);
   border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.information-form:hover h2::after {
+  width: 80px;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
+  gap: 20px;
   margin-bottom: 35px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  animation: fadeIn 0.6s ease-out;
 }
 
 .form-group.full-width {
@@ -464,6 +480,7 @@ export default {
   margin-bottom: 10px;
   font-weight: 500;
   color: var(--text-dark);
+  transition: var(--transition-normal);
 }
 
 .required {
@@ -492,7 +509,7 @@ export default {
   box-shadow: 0 0 0 3px var(--primary-light);
 }
 
-/* ===== 支付方式 ===== */
+/* Payment Methods */
 .payment-methods {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -513,15 +530,16 @@ export default {
 
 .payment-method:hover {
   background-color: white;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-light);
+  border-color: #ddd;
 }
 
 .payment-method.active {
   border-color: var(--primary-color);
   background-color: var(--primary-light);
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(255, 138, 138, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 138, 138, 0.15);
 }
 
 .payment-radio {
@@ -545,7 +563,7 @@ export default {
   height: 12px;
   border-radius: 50%;
   background-color: var(--primary-color);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1.275);
   transform: scale(0);
 }
 
@@ -555,7 +573,7 @@ export default {
 
 .payment-icon {
   font-size: 1.4rem;
-  color: #666;
+  color: var(--text-light);
   margin-right: 15px;
   transition: var(--transition-normal);
 }
@@ -569,18 +587,26 @@ export default {
   color: var(--text-dark);
 }
 
-/* ===== 订单摘要 ===== */
+/* Order Summary */
 .order-summary {
   background-color: #f9f9fb;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 25px;
   margin-bottom: 35px;
+  transition: var(--transition-normal);
+  border: 1px solid transparent;
+}
+
+.order-summary:hover {
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-light);
+  transform: translateY(-3px);
 }
 
 .summary-row {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 12px 0;
   transition: var(--transition-normal);
 }
 
@@ -590,29 +616,56 @@ export default {
 
 .summary-row.total {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--text-dark);
   padding-top: 15px;
   margin-top: 5px;
 }
 
-.summary-row .summary-value {
-  font-weight: 600;
-  color: var(--text-dark);
-}
-
 .summary-row.total .summary-value {
   color: var(--primary-color);
+  background-image: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* ===== 按钮操作 ===== */
+/* Buttons */
 .checkout-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
-/* ===== 动画效果 ===== */
+.checkout-actions .btn {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.checkout-actions .btn:hover {
+  transform: translateY(-3px);
+}
+
+.checkout-actions .btn-primary {
+  background-image: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+}
+
+.checkout-actions .btn-primary:hover {
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+.checkout-actions .btn-secondary {
+  background-color: transparent;
+  color: var(--text-dark);
+  border: 1px solid var(--border-light);
+}
+
+.checkout-actions .btn-secondary:hover {
+  background-color: #f8f8f8;
+  border-color: #ddd;
+}
+
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -638,42 +691,10 @@ export default {
   }
 }
 
-/* ===== 响应式设计 ===== */
+/* Responsive Design */
 @media (max-width: 768px) {
   .checkout-content {
     padding: 25px 20px;
-  }
-
-  .step-label {
-    font-size: 0.8rem;
-  }
-
-  .progress-bar {
-    margin: 0 10px;
-    margin-bottom: 38px;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .form-group.full-width {
-    grid-column: span 1;
-  }
-
-  .payment-methods {
-    grid-template-columns: 1fr;
-  }
-
-  .checkout-actions {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .checkout-actions .btn {
-    width: 100%;
-    text-align: center;
   }
 
   .section-title {

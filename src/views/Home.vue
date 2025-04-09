@@ -4,7 +4,7 @@
     <section class="hero-banner">
       <div class="container">
         <div class="hero-content">
-          <h1>Welcome to <span>ZING SHOP</span></h1>
+          <h1>Welcome to <span>PUNK PUNK</span></h1>
           <p>Discover authentic Pakistani products at great prices</p>
           <div class="hero-cta">
             <router-link to="/" class="btn btn-primary btn-lg">Shop Now</router-link>
