@@ -36,8 +36,7 @@
               </div>
               <div class="info-content">
                 <h3>Email</h3>
-                <p>info@pakistanstore.com</p>
-                <p>support@pakistanstore.com</p>
+                <p>punkpunk@punk.shop</p>
               </div>
             </div>
 
