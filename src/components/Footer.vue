@@ -34,7 +34,6 @@
         <div class="footer-section">
           <h3>Contact Info</h3>
           <ul class="contact-info">
-            <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, Karachi, Pakistan</li>
             <li><i class="fas fa-envelope"></i> punkpunk@punk.shop</li>
           </ul>
           <div class="payment-methods">
@@ -45,7 +44,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; Copyright © {{ currentYear }}  | Powered by Data Network Solutions (SMC-Private) Limited.</p>
+        <p>&copy; Copyright © {{ currentYear }} Punk Punk Store. Powered by Data Tech Solutions (SMC-Private) Limited</p>
       </div>
     </div>
   </footer>
